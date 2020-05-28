@@ -14,16 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
-    private val movieAdapter by lazy {
-        MovieAdapter { url ->
-            CustomTabsIntent.Builder()
-                .build()
-                .launchUrl(
-                    this@MainActivity,
-                    Uri.parse(url)
-                )
-        }
-    }
+
 
     private val movieSearchApi by lazy {
         Retrofit.Builder()
@@ -45,10 +36,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        rv_movie.adapter = movieAdapter
-
-
     }
 
     private fun searchByKeyWord(keyWord: String) {
@@ -58,11 +45,7 @@ class MainActivity : AppCompatActivity() {
                     call: Call<MovieDataResponse>,
                     response: Response<MovieDataResponse>
                 ) {
-                    Log.d(TAG, "$response")
-
-                    response.body()?.movieResponseList?.let { movieResponseList ->
-                        movieAdapter.replaceAll(movieResponseList.map { it.toMovieItem() })
-                    }
+                    Log.d(TAG, "${response.body()}")
                 }
 
                 override fun onFailure(call: Call<MovieDataResponse>, t: Throwable) {

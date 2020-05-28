@@ -20,7 +20,4 @@ data class MovieResponse(
     val title: String,
     @SerializedName("userRating")
     val userRating: String
-){
-    fun toMovieItem() =
-        MovieItem(actor, director, image, link, pubDate, title, userRating)
-}
+)
